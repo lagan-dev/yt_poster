@@ -1,0 +1,27 @@
+name: Daily YouTube Upload
+
+on:
+  schedule:
+    - cron: '0 9 * * *'    # Every day at 9:00 AM UTC
+  workflow_dispatch:         # Manual trigger too
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run bot
+        env:
+          YOUTUBE_CREDENTIALS: ${{ secrets.YOUTUBE_CREDENTIALS }}
+        run: python bot.py
