@@ -41,7 +41,7 @@ def get_youtube_client():
     creds_json = os.environ["YOUTUBE_CREDENTIALS"]
     creds_data = json.loads(creds_json)
     creds = Credentials(
-        token=creds_data["token"],
+        token=None,                          # ← force refresh every time
         refresh_token=creds_data["refresh_token"],
         token_uri="https://oauth2.googleapis.com/token",
         client_id=creds_data["client_id"],
